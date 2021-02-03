@@ -45,49 +45,53 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        alignment: Alignment.bottomCenter,
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'title'),
-              autofocus: true,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
-              controller: titleController,
-            ),
-            TextField(
-                decoration: InputDecoration(labelText: 'amount'),
-                keyboardType: TextInputType.number,
-                controller: amountController,
-                onSubmitted: (value) => submitData()),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(_selectedDate==null ?'No data chosen':
-                     DateFormat.yMMMEd().format(_selectedDate)),
-                  ),
-                  FlatButton(
-                    onPressed: _showSelectedDatePicker,
-                    child: Text('Choose Date',
-                        style: TextStyle(color: Colors.deepPurple)),
-                  ),
-                ],
+    return SingleChildScrollView(
+      child: Center(
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          padding: EdgeInsets.only(top: 10,left: 10,right: 10,
+          bottom: MediaQuery.of(context).viewInsets.bottom+10,),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'title'),
+                autofocus: true,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.next,
+                controller: titleController,
               ),
-            ),
-            OutlineButton(
-                onPressed: () => submitData(),
-                child: Text(
-                  'add transaction',
-                  style: TextStyle(
-                      color: Colors.deepPurple, fontWeight: FontWeight.bold),
-                ))
-          ],
+              TextField(
+                  decoration: InputDecoration(labelText: 'amount'),
+                  keyboardType: TextInputType.number,
+                  textInputAction:TextInputAction.next ,
+                  controller: amountController,
+                  onSubmitted: (value) => _showSelectedDatePicker()),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(_selectedDate==null ?'No data chosen':
+                       DateFormat.yMMMEd().format(_selectedDate)),
+                    ),
+                    FlatButton(
+                      onPressed: _showSelectedDatePicker,
+                      child: Text('Choose Date',
+                          style: TextStyle(color: Colors.deepPurple)),
+                    ),
+                  ],
+                ),
+              ),
+              OutlineButton(
+                  onPressed: () => submitData(),
+                  child: Text(
+                    'add transaction',
+                    style: TextStyle(
+                        color: Colors.deepPurple, fontWeight: FontWeight.bold),
+                  ))
+            ],
+          ),
         ),
       ),
     );
